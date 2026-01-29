@@ -1,0 +1,48 @@
+[project]
+name = "FletNotification"
+version = "0.1.2"
+description = "Módulo profissional de notificações para Flet Android"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "Alison santos", email = "Alisondev77@hotmail.com" }
+]
+dependencies = [
+    "flet==0.28.3",
+    "pyjnius",
+    "android-notify==1.60.8.dev0",
+]
+
+[tool.flet]
+org = "com.aldev"
+product = "Flet-Notify"
+company = "AlDev"
+copyright = "Copyright (C) 2025 by Alison"
+
+[tool.flet.app]
+path = "src"
+
+[tool.flet.android]
+bundle_id = "com.aldev.fletnotify"
+dependencies = [
+    "pyjnius",
+    "android-notify==1.60.8.dev0"
+]
+
+[tool.flet.android.permission]
+"android.permission.POST_NOTIFICATIONS" = true
+"android.permission.INTERNET" = true
+
+[tool.flet.flutter.pubspec.dependency_overrides]
+file_picker = "10.3.8"
+
+[tool.uv]
+dev-dependencies = [
+    "flet[all]==0.28.3",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+flet = {extras = ["all"], version = "0.28.3"}
