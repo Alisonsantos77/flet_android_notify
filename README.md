@@ -2,9 +2,9 @@
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Flet](https://img.shields.io/badge/Flet-0.25.0+-00B4D8?style=for-the-badge&logo=flutter&logoColor=white)
-![Android](https://img.shields.io/badge/Android-5.0+-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flet](https://img.shields.io/badge/Flet-0.28.0+-00B4D8?style=for-the-badge&logo=flutter&logoColor=white)
+![Android](https://img.shields.io/badge/Android-13.0+-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 **Sistema completo de notificações Android para aplicativos Flet**
@@ -13,8 +13,7 @@ Uma biblioteca Python elegante e pythônica para criar notificações Android na
 
 [Funcionalidades](#-funcionalidades) • [Instalação](#-instalação) • [Uso Rápido](#-uso-rápido) • [Documentação](#-documentação) • [Demo](#-demo-app)
 
-<!-- IMAGEM: GIF animado mostrando o app em ação no Android - diferentes tipos de notificações sendo enviadas -->
-![Demo App](docs/assets/demo.gif)
+![Sequence App](src/assets/sequence.gif)
 
 </div>
 
@@ -39,11 +38,15 @@ Se você já tentou criar notificações Android em Flet, sabe a dor: ou você v
 - 🔇 **Silenciosas**: Sem som ou vibração
 - 📌 **Persistentes**: Não podem ser fechadas com swipe
 
+![Notificações Simples](src/assets/simples.gif)
+
 ### Notificações Avançadas
 - 📊 **Progress Bar**: Determinado (0-100%) e indeterminado
 - 🎮 **Botões de Ação**: Até 3 botões interativos com callbacks
 - 🖼️ **Imagens**: Large icon, big picture, ou ambos
 - 📝 **Estilos de Texto**: Inbox style (lista de mensagens) e big text (texto longo)
+
+![Progress Bar](src/assets/download_loading.gif)
 
 ### Recursos Profissionais
 - ⚡ **Updates em Tempo Real**: Modifique notificações já enviadas
@@ -51,8 +54,7 @@ Se você já tentou criar notificações Android em Flet, sabe a dor: ou você v
 - 🔧 **Modo Dev**: Simula notificações em Windows para desenvolvimento
 - 🛡️ **Type Safety**: Enums e dataclasses para evitar erros bobos
 
-<!-- IMAGEM: Screenshot mostrando vários tipos de notificações lado a lado -->
-![Notification Types](docs/assets/notification-types.png)
+![Permissões](src/assets/permissao.gif)
 
 ## 📦 Instalação
 
@@ -106,14 +108,11 @@ import flet as ft
 from flet_notify import FletNotify
 
 def main(page: ft.Page):
-    # Inicializa o notificador
     notifier = FletNotify(page)
     
-    # Verifica e solicita permissão (Android 13+)
     if not notifier.check_permission():
         notifier.request_permission()
     
-    # Envia notificação simples
     notifier.send(
         title="Olá, Mundo!",
         message="Sua primeira notificação com Flet!"
@@ -131,20 +130,19 @@ from flet_notify import FletNotify
 async def download_file(page):
     notifier = FletNotify(page)
     
-    # Cria notificação com progress bar
     progress = notifier.create(
         title="Download em andamento",
         message="Baixando arquivo..."
     ).with_progress(0, 100).send()
     
-    # Simula download
     for i in range(0, 101, 10):
         await asyncio.sleep(0.5)
         progress.update_progress(i, message=f"{i}% concluído")
     
-    # Remove progress e mostra conclusão
     progress.remove_progress("Download completo!", show_briefly=True)
 ```
+
+![Download](src/assets/download_loading.gif)
 
 ### Exemplo com Botões Interativos
 
@@ -163,6 +161,8 @@ notifier.create(
  .send(persistent=True)
 ```
 
+![Dois botões](src/assets/two_buttons.gif)
+
 ### Exemplo com Inbox Style
 
 ```python
@@ -176,6 +176,21 @@ notifier.create(
  .add_line("Carlos: Pizza hoje?")\
  .send()
 ```
+
+![Inbox](src/assets/inbox.gif)
+
+### Exemplo com Imagens
+
+```python
+notifier.create(
+    title="@usuario comentou",
+    message="Que foto incrível! Adorei os detalhes."
+).set_large_icon("assets/profile.png")\
+ .set_big_picture("assets/post.png")\
+ .send()
+```
+
+![Imagens](src/assets/two_large_images.gif)
 
 ## 📚 Documentação Completa
 
@@ -205,31 +220,19 @@ Builder fluente para criar notificações complexas.
 ```python
 builder = notifier.create("Título", "Mensagem")
 
-# Adiciona ícone personalizado
 builder.set_icon("assets/icon.png")
-
-# Adiciona botões (máximo 3)
 builder.add_button("Ação", callback_function)
-
-# Configura progress bar
 builder.with_progress(current=0, max_value=100)
-
-# Adiciona imagens
 builder.set_large_icon("assets/profile.png")
 builder.set_big_picture("assets/photo.png")
-
-# Configura big text
 builder.set_big_text("Texto longo...")
-
-# Configura inbox style
 builder.add_line("Linha 1")
 builder.add_line("Linha 2")
 
-# Envia a notificação
 notification = builder.send(
-    silent=False,          # Som/vibração
-    persistent=False,       # Pode ser fechada
-    close_on_click=True    # Fecha ao clicar
+    silent=False,
+    persistent=False,
+    close_on_click=True
 )
 ```
 
@@ -242,26 +245,17 @@ Objeto retornado após enviar uma notificação. Permite updates em tempo real.
 ```python
 notification = notifier.send(...)
 
-# Atualiza título
 notification.update_title("Novo Título")
-
-# Atualiza mensagem
 notification.update_message("Nova mensagem")
-
-# Atualiza progress
 notification.update_progress(
     current=50,
     title="Baixando...",
     message="50% concluído"
 )
-
-# Remove progress bar
 notification.remove_progress(
     final_message="Concluído!",
     show_briefly=True
 )
-
-# Cancela a notificação
 notification.cancel()
 ```
 
@@ -297,8 +291,7 @@ NotificationStyle.BOTH_IMAGES   # Ícone + imagem
 
 O projeto inclui um app de demonstração completo com todas as funcionalidades.
 
-<!-- IMAGEM: Screenshot do menu principal do app demo -->
-![Demo App Interface](docs/assets/demo-interface.png)
+![Big Image](src/assets/tour_app.gif)
 
 ### Rodando o Demo Localmente
 
@@ -327,9 +320,6 @@ O demo inclui exemplos de:
 - ✅ Canais customizados
 - ✅ Sequências complexas
 
-<!-- IMAGEM: Screenshot mostrando exemplos de notificações com progress bar -->
-![Progress Examples](docs/assets/progress-examples.png)
-
 ## 🛠️ Desenvolvimento
 
 ### Estrutura do Projeto
@@ -340,8 +330,6 @@ flet_android_notify/
 │   ├── main.py                 # App demo completo
 │   ├── flet_notify.py          # Biblioteca principal
 │   └── assets/                 # Recursos do app
-├── docs/
-│   └── assets/                 # Imagens do README
 ├── pyproject.toml              # Config do Flet
 ├── README.md                   # Este arquivo
 └── LICENSE                     # Licença MIT
@@ -352,10 +340,8 @@ flet_android_notify/
 O projeto detecta automaticamente quando está rodando fora do Android e entra em "modo dev":
 
 ```python
-# Detecta plataforma automaticamente
 self.dev_mode = page.platform != ft.PagePlatform.ANDROID
 
-# Em Windows, simula as notificações
 if self.dev_mode:
     self._increment_counter()
     self._show_snack(f"🔧 DEV: Simulando '{action_name}'")
