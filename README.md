@@ -215,8 +215,8 @@ builder.add_button("Ação", callback_function)
 builder.with_progress(current=0, max_value=100)
 
 # Adiciona imagens
-builder.set_large_icon("assets/profile.jpg")
-builder.set_big_picture("assets/photo.jpg")
+builder.set_large_icon("assets/profile.png")
+builder.set_big_picture("assets/photo.png")
 
 # Configura big text
 builder.set_big_text("Texto longo...")
