@@ -2,16 +2,21 @@
 
 <div align="center">
 
+<p>
+  <a href="README.md">🇺🇸 English</a> •
+  <a href="README.pt-BR.md">🇧🇷 Português</a>
+</p>
+
 ![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Flet](https://img.shields.io/badge/Flet-0.28.0+-00B4D8?style=for-the-badge&logo=flutter&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-13.0+-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-**Sistema completo de notificações Android para aplicativos Flet**
+**Complete Android notification system for Flet applications**
 
-Uma biblioteca Python elegante e pythônica para criar notificações Android nativas com suporte a progress bars, botões interativos, múltiplos estilos e muito mais.
+An elegant and pythonic Python library to create native Android notifications with support for progress bars, interactive buttons, multiple styles, and much more.
 
-[Funcionalidades](#-funcionalidades) • [Instalação](#-instalação) • [Uso Rápido](#-uso-rápido) • [Documentação](#-documentação) • [Demo](#-demo-app)
+[Features](#-features) • [Installation](#-installation) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Demo](#-demo-app)
 
 ![Sequence App](src/assets/sequence.gif)
 
@@ -19,67 +24,67 @@ Uma biblioteca Python elegante e pythônica para criar notificações Android na
 
 ---
 
-## 🎯 Por Que Este Projeto?
+## 🎯 Why This Project?
 
-Se você já tentou criar notificações Android em Flet, sabe a dor: ou você vai direto pro Java/Kotlin com JNI (spoiler: é um pesadelo), ou usa libs malucas que mal funcionam. Este projeto resolve isso de forma **pythônica**, **type-safe** e **battle-tested**.
+If you've ever tried to create Android notifications in Flet, you know the pain: either you dive straight into Java/Kotlin with JNI (spoiler: it's a nightmare), or you use sketchy libs that barely work. This project solves this in a **pythonic**, **type-safe**, and **battle-tested** way.
 
-**O diferencial?**
-- ✅ API fluente e intuitiva (builder pattern)
-- ✅ Suporte completo a todos os estilos Android
-- ✅ Type hints em tudo (seu IDE vai te amar)
-- ✅ Tratamento de erros robusto
-- ✅ Documentação em português BR
-- ✅ App demo completo incluído
+**What makes it different?**
+- ✅ Fluent and intuitive API (builder pattern)
+- ✅ Complete support for all Android notification styles
+- ✅ Type hints everywhere (your IDE will love you)
+- ✅ Robust error handling
+- ✅ Comprehensive documentation
+- ✅ Full demo app included
 
-## 🚀 Funcionalidades
+## 🚀 Features
 
-### Notificações Básicas
-- 📨 **Simples**: Título + mensagem clássica
-- 🔇 **Silenciosas**: Sem som ou vibração
-- 📌 **Persistentes**: Não podem ser fechadas com swipe
+### Basic Notifications
+- 📨 **Simple**: Classic title + message
+- 🔇 **Silent**: No sound or vibration
+- 📌 **Persistent**: Cannot be dismissed by swiping
 
-![Notificações Simples](src/assets/simples.gif)
+![Simple Notifications](src/assets/simples.gif)
 
-### Notificações Avançadas
-- 📊 **Progress Bar**: Determinado (0-100%) e indeterminado
-- 🎮 **Botões de Ação**: Até 3 botões interativos com callbacks
-- 🖼️ **Imagens**: Large icon, big picture, ou ambos
-- 📝 **Estilos de Texto**: Inbox style (lista de mensagens) e big text (texto longo)
+### Advanced Notifications
+- 📊 **Progress Bar**: Determinate (0-100%) and indeterminate
+- 🎮 **Action Buttons**: Up to 3 interactive buttons with callbacks
+- 🖼️ **Images**: Large icon, big picture, or both
+- 📝 **Text Styles**: Inbox style (message list) and big text (expandable long text)
 
 ![Progress Bar](src/assets/download_loading.gif)
 
-### Recursos Profissionais
-- ⚡ **Updates em Tempo Real**: Modifique notificações já enviadas
-- 🎨 **Canais Customizados**: Controle total sobre importância e comportamento
-- 🔧 **Modo Dev**: Simula notificações em Windows para desenvolvimento
-- 🛡️ **Type Safety**: Enums e dataclasses para evitar erros bobos
+### Professional Features
+- ⚡ **Real-time Updates**: Modify notifications after sending
+- 🎨 **Custom Channels**: Full control over importance and behavior
+- 🔧 **Dev Mode**: Simulates notifications on Windows for development
+- 🛡️ **Type Safety**: Enums and dataclasses to prevent silly mistakes
 
-![Permissões](src/assets/permissao.gif)
+![Permissions](src/assets/permissao.gif)
 
-## 📦 Instalação
+## 📦 Installation
 
-### Pré-requisitos
+### Prerequisites
 
 ```bash
 Python 3.10+
-Flet 0.28.3
-Android SDK (para build)
+Flet 0.28.0+ (tested and compatible up to 0.80.x)
+Android SDK (for building)
 ```
 
-### Instalação Rápida
+### Quick Installation
 
-1. **Clone o repositório:**
+1. **Clone the repository:**
 ```bash
 git clone https://github.com/Alisonsantos77/flet_android_notify.git
 cd flet_android_notify
 ```
 
-2. **Instale as dependências:**
+2. **Install dependencies:**
 ```bash
 pip install .
 ```
 
-3. **Configure o `pyproject.toml` para Android:**
+3. **Configure `pyproject.toml` for Android:**
 ```toml
 [tool.flet.android]
 
@@ -92,16 +97,16 @@ dependencies = [
 name = "android.permission.POST_NOTIFICATIONS"
 ```
 
-4. **Build para Android:**
+4. **Build for Android:**
 ```bash
 flet build apk
 ```
 
-> **⚠️ Importante**: A biblioteca `android-notify` só funciona em dispositivos Android reais. Para desenvolvimento em Windows, o app entra automaticamente em modo simulação.
+> **⚠️ Important**: The `android-notify` library only works on real Android devices. For development on Windows, the app automatically enters simulation mode.
 
-## 💻 Uso Rápido
+## 💻 Quick Start
 
-### Exemplo Básico
+### Basic Example
 
 ```python
 import flet as ft
@@ -114,14 +119,14 @@ def main(page: ft.Page):
         notifier.request_permission()
     
     notifier.send(
-        title="Olá, Mundo!",
-        message="Sua primeira notificação com Flet!"
+        title="Hello, World!",
+        message="Your first notification with Flet!"
     )
 
 ft.app(target=main)
 ```
 
-### Exemplo com Progress Bar
+### Example with Progress Bar
 
 ```python
 import asyncio
@@ -131,103 +136,103 @@ async def download_file(page):
     notifier = FletNotify(page)
     
     progress = notifier.create(
-        title="Download em andamento",
-        message="Baixando arquivo..."
+        title="Download in progress",
+        message="Downloading file..."
     ).with_progress(0, 100).send()
     
     for i in range(0, 101, 10):
         await asyncio.sleep(0.5)
-        progress.update_progress(i, message=f"{i}% concluído")
+        progress.update_progress(i, message=f"{i}% completed")
     
-    progress.remove_progress("Download completo!", show_briefly=True)
+    progress.remove_progress("Download complete!", show_briefly=True)
 ```
 
 ![Download](src/assets/download_loading.gif)
 
-### Exemplo com Botões Interativos
+### Example with Interactive Buttons
 
 ```python
 def on_accept():
-    print("Usuário aceitou!")
+    print("User accepted!")
 
 def on_decline():
-    print("Usuário recusou!")
+    print("User declined!")
 
 notifier.create(
-    title="Convite de Reunião",
-    message="Reunião às 15h - Confirme sua presença"
-).add_button("Aceitar", on_accept)\
- .add_button("Recusar", on_decline)\
+    title="Meeting Invitation",
+    message="Meeting at 3 PM - Confirm your attendance"
+).add_button("Accept", on_accept)\
+ .add_button("Decline", on_decline)\
  .send(persistent=True)
 ```
 
-![Dois botões](src/assets/two_buttons.gif)
+![Two Buttons](src/assets/two_buttons.gif)
 
-### Exemplo com Inbox Style
+### Example with Inbox Style
 
 ```python
 notifier.create(
-    title="5 novas mensagens",
+    title="5 new messages",
     message="WhatsApp"
-).add_line("João: E aí, tudo certo?")\
- .add_line("Maria: Reunião às 15h!")\
- .add_line("Pedro: PR aprovado! 🎉")\
- .add_line("Ana: Parabéns!")\
- .add_line("Carlos: Pizza hoje?")\
+).add_line("John: Hey, how are you?")\
+ .add_line("Mary: Meeting at 3 PM!")\
+ .add_line("Peter: PR approved! 🎉")\
+ .add_line("Anna: Congratulations!")\
+ .add_line("Carlos: Pizza today?")\
  .send()
 ```
 
 ![Inbox](src/assets/inbox.gif)
 
-### Exemplo com Imagens
+### Example with Images
 
 ```python
 notifier.create(
-    title="@usuario comentou",
-    message="Que foto incrível! Adorei os detalhes."
+    title="@user commented",
+    message="Amazing photo! Love the details."
 ).set_large_icon("assets/profile.png")\
  .set_big_picture("assets/post.png")\
  .send()
 ```
 
-![Imagens](src/assets/two_large_images.gif)
+![Images](src/assets/two_large_images.gif)
 
-## 📚 Documentação Completa
+## 📚 Complete Documentation
 
 ### API Reference
 
 #### `FletNotify(page: ft.Page)`
 
-Classe principal para gerenciar notificações.
+Main class for managing notifications.
 
-**Métodos:**
+**Methods:**
 
-| Método | Descrição | Retorno |
-|--------|-----------|---------|
-| `check_permission()` | Verifica se tem permissão para notificações | `bool` |
-| `request_permission()` | Solicita permissão ao usuário | `bool` |
-| `send(title, message, ...)` | Envia notificação simples | `FletNotification` |
-| `create(title, message, ...)` | Cria builder para notificação customizada | `NotificationBuilder` |
-| `create_channel(...)` | Cria canal de notificação customizado | `None` |
-| `cancel_all()` | Cancela todas as notificações ativas | `None` |
+| Method | Description | Return |
+|--------|-------------|--------|
+| `check_permission()` | Check if notification permission is granted | `bool` |
+| `request_permission()` | Request permission from user | `bool` |
+| `send(title, message, ...)` | Send simple notification | `FletNotification` |
+| `create(title, message, ...)` | Create builder for custom notification | `NotificationBuilder` |
+| `create_channel(...)` | Create custom notification channel | `None` |
+| `cancel_all()` | Cancel all active notifications | `None` |
 
 #### `NotificationBuilder`
 
-Builder fluente para criar notificações complexas.
+Fluent builder for creating complex notifications.
 
-**Métodos de Configuração:**
+**Configuration Methods:**
 
 ```python
-builder = notifier.create("Título", "Mensagem")
+builder = notifier.create("Title", "Message")
 
 builder.set_icon("assets/icon.png")
-builder.add_button("Ação", callback_function)
+builder.add_button("Action", callback_function)
 builder.with_progress(current=0, max_value=100)
 builder.set_large_icon("assets/profile.png")
 builder.set_big_picture("assets/photo.png")
-builder.set_big_text("Texto longo...")
-builder.add_line("Linha 1")
-builder.add_line("Linha 2")
+builder.set_big_text("Long text...")
+builder.add_line("Line 1")
+builder.add_line("Line 2")
 
 notification = builder.send(
     silent=False,
@@ -238,205 +243,208 @@ notification = builder.send(
 
 #### `FletNotification`
 
-Objeto retornado após enviar uma notificação. Permite updates em tempo real.
+Object returned after sending a notification. Allows real-time updates.
 
-**Métodos:**
+**Methods:**
 
 ```python
 notification = notifier.send(...)
 
-notification.update_title("Novo Título")
-notification.update_message("Nova mensagem")
+notification.update_title("New Title")
+notification.update_message("New message")
 notification.update_progress(
     current=50,
-    title="Baixando...",
-    message="50% concluído"
+    title="Downloading...",
+    message="50% completed"
 )
 notification.remove_progress(
-    final_message="Concluído!",
+    final_message="Completed!",
     show_briefly=True
 )
 notification.cancel()
 ```
 
-### Enums Disponíveis
+### Available Enums
 
 #### `NotificationImportance`
 
-Controla o nível de importância da notificação:
+Controls the notification importance level:
 
 ```python
-NotificationImportance.URGENT   # Máxima prioridade (som + heads-up)
-NotificationImportance.HIGH     # Alta prioridade (som)
-NotificationImportance.MEDIUM   # Média prioridade (sem som)
-NotificationImportance.LOW      # Baixa prioridade (minimizada)
-NotificationImportance.NONE     # Sem notificação visível
+NotificationImportance.URGENT   # Maximum priority (sound + heads-up)
+NotificationImportance.HIGH     # High priority (sound)
+NotificationImportance.MEDIUM   # Medium priority (no sound)
+NotificationImportance.LOW      # Low priority (minimized)
+NotificationImportance.NONE     # No visible notification
 ```
 
 #### `NotificationStyle`
 
-Define o estilo visual da notificação:
+Defines the visual style of the notification:
 
 ```python
-NotificationStyle.SIMPLE        # Título + mensagem simples
-NotificationStyle.PROGRESS      # Com barra de progresso
-NotificationStyle.INBOX         # Lista de mensagens
-NotificationStyle.BIG_TEXT      # Texto longo expansível
-NotificationStyle.LARGE_ICON    # Com ícone grande
-NotificationStyle.BIG_PICTURE   # Com imagem grande
-NotificationStyle.BOTH_IMAGES   # Ícone + imagem
+NotificationStyle.SIMPLE        # Simple title + message
+NotificationStyle.PROGRESS      # With progress bar
+NotificationStyle.INBOX         # Message list
+NotificationStyle.BIG_TEXT      # Expandable long text
+NotificationStyle.LARGE_ICON    # With large icon
+NotificationStyle.BIG_PICTURE   # With large image
+NotificationStyle.BOTH_IMAGES   # Icon + image
 ```
 
 ## 🎨 Demo App
 
-O projeto inclui um app de demonstração completo com todas as funcionalidades.
+The project includes a complete demonstration app with all features.
 
 ![Big Image](src/assets/tour_app.gif)
 
-### Rodando o Demo Localmente
+### Running the Demo Locally
 
 ```bash
-# Windows (modo simulação)
+# Windows (simulation mode)
 flet run src/main.py
 
-# Android (notificações reais)
+# Android (real notifications)
 flet build apk
 ```
 
-### Estrutura do Demo
+### Demo Structure
 
 ```
 src/
-├── main.py              # App principal com UI completa
-├── flet_notify.py       # Biblioteca core
-└── assets/              # Recursos (imagens, ícones)
+├── main.py              # Main app with complete UI
+├── flet_notify.py       # Core library
+└── assets/              # Resources (images, icons)
 ```
 
-O demo inclui exemplos de:
-- ✅ Todos os tipos de notificações
-- ✅ Progress bars animados
-- ✅ Botões interativos
-- ✅ Updates em tempo real
-- ✅ Canais customizados
-- ✅ Sequências complexas
+The demo includes examples of:
+- ✅ All notification types
+- ✅ Animated progress bars
+- ✅ Interactive buttons
+- ✅ Real-time updates
+- ✅ Custom channels
+- ✅ Complex sequences
 
-## 🛠️ Desenvolvimento
+## 🛠️ Development
 
-### Estrutura do Projeto
+### Project Structure
 
 ```
 flet_android_notify/
 ├── src/
-│   ├── main.py                 # App demo completo
-│   ├── flet_notify.py          # Biblioteca principal
-│   └── assets/                 # Recursos do app
-├── pyproject.toml              # Config do Flet
-├── README.md                   # Este arquivo
-└── LICENSE                     # Licença MIT
+│   ├── main.py                 # Complete demo app
+│   ├── flet_notify.py          # Main library
+│   └── assets/                 # App resources
+├── pyproject.toml              # Flet configuration
+├── README.md                   # This file
+└── LICENSE                     # MIT License
 ```
 
-### Modo Desenvolvedor
+### Developer Mode
 
-O projeto detecta automaticamente quando está rodando fora do Android e entra em "modo dev":
+The project automatically detects when running outside Android and enters "dev mode":
 
 ```python
 self.dev_mode = page.platform != ft.PagePlatform.ANDROID
 
 if self.dev_mode:
     self._increment_counter()
-    self._show_snack(f"🔧 DEV: Simulando '{action_name}'")
+    self._show_snack(f"🔧 DEV: Simulating '{action_name}'")
     return True
 ```
 
-Isso permite desenvolver e testar a UI completa sem precisar buildar para Android toda hora.
+This allows developing and testing the complete UI without needing to build for Android every time.
 
 ## 🐛 Troubleshooting
 
-### Problema: "PlatformNotSupportedException"
-**Causa**: Tentando usar notificações em plataforma não suportada.
-**Solução**: O modo dev deveria detectar automaticamente. Verifique se está usando a versão mais recente.
+### Issue: "PlatformNotSupportedException"
+**Cause**: Trying to use notifications on an unsupported platform.
+**Solution**: Dev mode should detect automatically. Check if you're using the latest version.
 
-### Problema: "PermissionDeniedException"
-**Causa**: Usuário negou permissão de notificações.
-**Solução**: 
+### Issue: "PermissionDeniedException"
+**Cause**: User denied notification permission.
+**Solution**: 
 ```python
 if not notifier.check_permission():
     notifier.request_permission()
 ```
 
-### Problema: "AndroidNotifyNotAvailableException"
-**Causa**: Biblioteca `android-notify` não instalada ou não configurada.
-**Solução**: Verifique o `pyproject.toml`:
+### Issue: "AndroidNotifyNotAvailableException"
+**Cause**: `android-notify` library not installed or configured.
+**Solution**: Check `pyproject.toml`:
 ```toml
 [tool.flet.android]
 dependencies = ["android-notify==1.60.8.dev0"]
 ```
 
-### Problema: Notificações não aparecem no Android 13+
-**Causa**: Falta permissão POST_NOTIFICATIONS.
-**Solução**: Adicione ao `pyproject.toml`:
+### Issue: Notifications don't appear on Android 13+
+**Cause**: Missing POST_NOTIFICATIONS permission.
+**Solution**: Add to `pyproject.toml`:
 ```toml
 [[tool.flet.android.permissions]]
 name = "android.permission.POST_NOTIFICATIONS"
 ```
 
-## 🤝 Contribuindo
+### Issue: Compatibility with newer Flet versions
+**Note**: This package was thoroughly tested with Flet 0.28.0+ and is fully compatible with newer versions up to 0.80.x. The documentation specifies 0.28.0+ as the baseline version with guaranteed compatibility. If you encounter any issues with your specific Flet version, please report them in the Issues section.
 
-Contribuições são super bem-vindas! Seja fixando um bug, adicionando feature, ou melhorando a documentação.
+## 🤝 Contributing
 
-### Como Contribuir
+Contributions are very welcome! Whether fixing a bug, adding a feature, or improving documentation.
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'feat: Adiciona MinhaFeature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abra um Pull Request
+### How to Contribute
 
-### Convenções de Commit
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/MyFeature`)
+3. Commit your changes (`git commit -m 'feat: Add MyFeature'`)
+4. Push to the branch (`git push origin feature/MyFeature`)
+5. Open a Pull Request
 
-Usamos [Conventional Commits](https://www.conventionalcommits.org/):
+### Commit Conventions
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
-feat: Nova funcionalidade
-fix: Correção de bug
-docs: Mudanças na documentação
-style: Formatação, ponto e vírgula, etc
-refactor: Refatoração de código
-chore: Tarefas de manutenção
+feat: New feature
+fix: Bug fix
+docs: Documentation changes
+style: Formatting, semicolons, etc
+refactor: Code refactoring
+chore: Maintenance tasks
 ```
 
-## 📜 Licença
+## 📜 License
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+This project is under the MIT license. See the [LICENSE](LICENSE) file for more details.
 
-## 💡 Inspiração e Créditos
+## 💡 Inspiration and Credits
 
-Este projeto foi inspirado e construído com base no excelente trabalho de **[Agusss (MasterA5)](https://github.com/Agusss)**, especialmente seu repositório [FletNotification](https://github.com/Agusss/FletNotification).
+This project was inspired by and built upon the excellent work of **[Agusss (MasterA5)](https://github.com/Agusss)**, especially their [FletNotification](https://github.com/Agusss/FletNotification) repository.
 
-Fundamental para entender como integrar notificações Android com Flet usando PyJNIus e a biblioteca android-notify. Muitos conceitos e patterns utilizados aqui foram adaptados e expandidos a partir daquele trabalho pioneiro.
+Essential for understanding how to integrate Android notifications with Flet using PyJNIus and the android-notify library. Many concepts and patterns used here were adapted and expanded from that pioneering work.
 
-**Principais diferenças deste fork/reimplementação:**
-- 🏗️ Arquitetura refatorada com builder pattern
-- 📝 Documentação completa em português BR
-- 🎨 App demo profissional e completo
-- 🛡️ Type hints e type safety
-- 🔧 Modo desenvolvedor para testes locais
-- 📊 Suporte expandido a todos os estilos de notificação
+**Main differences of this fork/reimplementation:**
+- 🏗️ Refactored architecture with builder pattern
+- 📝 Comprehensive documentation in both English and Portuguese
+- 🎨 Professional and complete demo app
+- 🛡️ Type hints and type safety
+- 🔧 Developer mode for local testing
+- 📊 Expanded support for all notification styles
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
 **Alison Santos**  
-🇧🇷 Desenvolvedor Backend Python  
+🇧🇷 Backend Python Developer  
 📧 [GitHub](https://github.com/Alisonsantos77)
 
 ---
 
 <div align="center">
 
-**Se este projeto foi útil, deixe uma ⭐!**
+**If this project was useful, leave a ⭐!**
 
-Feito com ❤️ e muitos ☕ por desenvolvedores Python
+Made with ❤️ and lots of ☕ by Python developers
 
-[⬆ Voltar ao topo](#-flet-android-notify)
+[⬆ Back to top](#-flet-android-notify)
 
 </div>
