@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Flet](https://img.shields.io/badge/Flet-0.28.0+-00B4D8?style=for-the-badge&logo=flutter&logoColor=white)
+![Flet](https://img.shields.io/badge/Flet-0.80.5+-00B4D8?style=for-the-badge&logo=flutter&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-13.0+-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
@@ -30,6 +30,10 @@ Se você já tentou criar notificações Android em Flet, sabe a dor: ou você v
 - ✅ Tratamento de erros robusto
 - ✅ Documentação em português BR
 - ✅ App demo completo incluído
+- ✅ Dark theme customizado com paleta moderna
+- ✅ Compatível com Flet 0.80.5+
+
+---
 
 ## 🚀 Funcionalidades
 
@@ -56,30 +60,32 @@ Se você já tentou criar notificações Android em Flet, sabe a dor: ou você v
 
 ![Permissões](src/assets/permissao.gif)
 
+---
+
 ## 📦 Instalação
 
 ### Pré-requisitos
 
-```bash
+```
 Python 3.10+
-Flet 0.28.3
+Flet 0.80.5+
 Android SDK (para build)
 ```
 
 ### Instalação Rápida
 
-1. **Clone o repositório:**
+**1. Clone o repositório:**
 ```bash
 git clone https://github.com/Alisonsantos77/flet_android_notify.git
 cd flet_android_notify
 ```
 
-2. **Instale as dependências:**
+**2. Instale as dependências:**
 ```bash
 pip install .
 ```
 
-3. **Configure o `pyproject.toml` para Android:**
+**3. Configure o `pyproject.toml` para Android:**
 ```toml
 [tool.flet.android]
 
@@ -92,12 +98,14 @@ dependencies = [
 name = "android.permission.POST_NOTIFICATIONS"
 ```
 
-4. **Build para Android:**
+**4. Build para Android:**
 ```bash
 flet build apk
 ```
 
 > **⚠️ Importante**: A biblioteca `android-notify` só funciona em dispositivos Android reais. Para desenvolvimento em Windows, o app entra automaticamente em modo simulação.
+
+---
 
 ## 💻 Uso Rápido
 
@@ -107,18 +115,18 @@ flet build apk
 import flet as ft
 from flet_notify import FletNotify
 
-def main(page: ft.Page):
+async def main(page: ft.Page):
     notifier = FletNotify(page)
-    
+
     if not notifier.check_permission():
         notifier.request_permission()
-    
+
     notifier.send(
         title="Olá, Mundo!",
         message="Sua primeira notificação com Flet!"
     )
 
-ft.app(target=main)
+ft.run(main)
 ```
 
 ### Exemplo com Progress Bar
@@ -129,16 +137,16 @@ from flet_notify import FletNotify
 
 async def download_file(page):
     notifier = FletNotify(page)
-    
+
     progress = notifier.create(
         title="Download em andamento",
         message="Baixando arquivo..."
     ).with_progress(0, 100).send()
-    
+
     for i in range(0, 101, 10):
         await asyncio.sleep(0.5)
         progress.update_progress(i, message=f"{i}% concluído")
-    
+
     progress.remove_progress("Download completo!", show_briefly=True)
 ```
 
@@ -191,6 +199,8 @@ notifier.create(
 ```
 
 ![Imagens](src/assets/two_large_images.gif)
+
+---
 
 ## 📚 Documentação Completa
 
@@ -265,6 +275,7 @@ notification.cancel()
 
 Controla o nível de importância da notificação:
 
+
 ```python
 NotificationImportance.URGENT   # Máxima prioridade (som + heads-up)
 NotificationImportance.HIGH     # Alta prioridade (som)
@@ -287,9 +298,11 @@ NotificationStyle.BIG_PICTURE   # Com imagem grande
 NotificationStyle.BOTH_IMAGES   # Ícone + imagem
 ```
 
+---
+
 ## 🎨 Demo App
 
-O projeto inclui um app de demonstração completo com todas as funcionalidades.
+O projeto inclui um app de demonstração completo com todas as funcionalidades e um dark theme customizado.
 
 ![Big Image](src/assets/tour_app.gif)
 
@@ -320,6 +333,49 @@ O demo inclui exemplos de:
 - ✅ Canais customizados
 - ✅ Sequências complexas
 
+---
+
+## 🔄 Migração para Flet 0.80.5
+
+Se você estava usando uma versão anterior, aqui estão as principais mudanças necessárias:
+
+| Antes (≤ 0.28.x) | Depois (0.80.5+) | Motivo |
+|---|---|---|
+| `ft.app(target=main)` | `ft.run(main)` | Novo ponto de entrada |
+| `ft.colors.RED_400` | `ft.Colors.RED_400` | Constantes em PascalCase |
+| `ft.padding.symmetric()` | `ft.Padding.symmetric()` | Classes em PascalCase |
+| `ft.margin.all()` | `ft.Margin.all()` | Classes em PascalCase |
+| `ExpansionTile(initially_expanded=True)` | Setar via atributo após construção | Removido do `__init__` |
+| `page.overlay.append(SnackBar(...))` | `page.show_dialog(SnackBar(...))` | Nova API unificada |
+
+```python
+# Antes
+ft.app(target=main, assets_dir="assets")
+
+# Depois ✅
+ft.run(main, assets_dir="assets")
+```
+
+```python
+# Antes
+page.overlay.append(ft.SnackBar(...))
+snackbar_ref.current.open = True
+
+# Depois ✅
+page.show_dialog(ft.SnackBar(content=ft.Text("mensagem")))
+```
+
+```python
+# Antes
+tile = ft.ExpansionTile(initially_expanded=True, ...)
+
+# Depois ✅
+tile = ft.ExpansionTile(...)
+tile.initially_expanded = True
+```
+
+---
+
 ## 🛠️ Desenvolvimento
 
 ### Estrutura do Projeto
@@ -331,13 +387,14 @@ flet_android_notify/
 │   ├── flet_notify.py          # Biblioteca principal
 │   └── assets/                 # Recursos do app
 ├── pyproject.toml              # Config do Flet
-├── README.md                   # Este arquivo
+├── README.md                   # Versão em inglês
+├── README.pt-BR.md             # Versão em português
 └── LICENSE                     # Licença MIT
 ```
 
 ### Modo Desenvolvedor
 
-O projeto detecta automaticamente quando está rodando fora do Android e entra em "modo dev":
+O projeto detecta automaticamente quando está rodando fora do Android e entra em modo dev — sem precisar buildar para Android toda hora:
 
 ```python
 self.dev_mode = page.platform != ft.PagePlatform.ANDROID
@@ -348,23 +405,35 @@ if self.dev_mode:
     return True
 ```
 
-Isso permite desenvolver e testar a UI completa sem precisar buildar para Android toda hora.
+### Silenciando os logs do Flet
+
+Por padrão o Flet é muito verboso no console. Para deixar limpo em desenvolvimento:
+
+```python
+import logging
+
+logging.basicConfig(level=logging.WARNING)
+for _logger in ("flet", "flet_transport", "flet_controls", "asyncio"):
+    logging.getLogger(_logger).setLevel(logging.WARNING)
+```
+
+---
 
 ## 🐛 Troubleshooting
 
-### Problema: "PlatformNotSupportedException"
+### "PlatformNotSupportedException"
 **Causa**: Tentando usar notificações em plataforma não suportada.
 **Solução**: O modo dev deveria detectar automaticamente. Verifique se está usando a versão mais recente.
 
-### Problema: "PermissionDeniedException"
+### "PermissionDeniedException"
 **Causa**: Usuário negou permissão de notificações.
-**Solução**: 
+**Solução**:
 ```python
 if not notifier.check_permission():
     notifier.request_permission()
 ```
 
-### Problema: "AndroidNotifyNotAvailableException"
+### "AndroidNotifyNotAvailableException"
 **Causa**: Biblioteca `android-notify` não instalada ou não configurada.
 **Solução**: Verifique o `pyproject.toml`:
 ```toml
@@ -372,13 +441,23 @@ if not notifier.check_permission():
 dependencies = ["android-notify==1.60.8.dev0"]
 ```
 
-### Problema: Notificações não aparecem no Android 13+
-**Causa**: Falta permissão POST_NOTIFICATIONS.
+### Notificações não aparecem no Android 13+
+**Causa**: Falta permissão `POST_NOTIFICATIONS`.
 **Solução**: Adicione ao `pyproject.toml`:
 ```toml
 [[tool.flet.android.permissions]]
 name = "android.permission.POST_NOTIFICATIONS"
 ```
+
+### `ColorScheme.__init__() got an unexpected keyword argument 'brightness'`
+**Causa**: O parâmetro `brightness` não existe no `ColorScheme` do Flet 0.80.5.
+**Solução**: Remova o argumento — o modo escuro é controlado por `page.theme_mode = ft.ThemeMode.DARK`.
+
+### `Theme.__init__() got an unexpected keyword argument 'snack_bar_theme'`
+**Causa**: Typo no nome do parâmetro.
+**Solução**: O nome correto é `snackbar_theme` (sem underscore entre snack e bar).
+
+---
 
 ## 🤝 Contribuindo
 
@@ -394,8 +473,6 @@ Contribuições são super bem-vindas! Seja fixando um bug, adicionando feature,
 
 ### Convenções de Commit
 
-Usamos [Conventional Commits](https://www.conventionalcommits.org/):
-
 ```
 feat: Nova funcionalidade
 fix: Correção de bug
@@ -405,9 +482,13 @@ refactor: Refatoração de código
 chore: Tarefas de manutenção
 ```
 
+---
+
 ## 📜 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
 
 ## 💡 Inspiração e Créditos
 
@@ -415,19 +496,22 @@ Este projeto foi inspirado e construído com base no excelente trabalho de **[Ag
 
 Fundamental para entender como integrar notificações Android com Flet usando PyJNIus e a biblioteca android-notify. Muitos conceitos e patterns utilizados aqui foram adaptados e expandidos a partir daquele trabalho pioneiro.
 
-**Principais diferenças deste fork/reimplementação:**
+**Principais diferenças deste projeto:**
 - 🏗️ Arquitetura refatorada com builder pattern
 - 📝 Documentação completa em português BR
-- 🎨 App demo profissional e completo
+- 🎨 App demo com dark theme customizado
 - 🛡️ Type hints e type safety
 - 🔧 Modo desenvolvedor para testes locais
 - 📊 Suporte expandido a todos os estilos de notificação
+- 🔄 Compatível e documentado para Flet 0.80.5+
+
+---
 
 ## 👨‍💻 Autor
 
-**Alison Santos**  
-🇧🇷 Desenvolvedor Backend Python  
-📧 [GitHub](https://github.com/Alisonsantos77)
+**Alison Santos**
+🇧🇷 Desenvolvedor Python
+📧 [GitHub](https://github.com/Alisonsantos77) • [Portfólio](https://alisondeveloper.com)
 
 ---
 
