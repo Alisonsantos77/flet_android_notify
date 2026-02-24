@@ -94,8 +94,8 @@ dependencies = [
     "android-notify==1.60.10"
 ]
 
-[[tool.flet.android.permissions]]
-name = "android.permission.POST_NOTIFICATIONS"
+[tool.flet.android.permission]
+"android.permission.POST_NOTIFICATIONS" = true
 ```
 
 4. **Build for Android:**
@@ -409,8 +409,8 @@ dependencies = ["android-notify==1.60.10"]
 **Cause**: Missing POST_NOTIFICATIONS permission.
 **Solution**: Add to `pyproject.toml`:
 ```toml
-[[tool.flet.android.permissions]]
-name = "android.permission.POST_NOTIFICATIONS"
+[tool.flet.android.permission]
+"android.permission.POST_NOTIFICATIONS" = true
 ```
 
 ## 🤝 Contributing
